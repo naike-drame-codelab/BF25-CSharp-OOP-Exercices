@@ -20,10 +20,25 @@ Current account = new Current()
     Titular = titular
 };
 
+// initialisation d'un objet Bank comme banque
+Bank bank = new Bank()
+{
+    Name = "Belfius"
+};
+
 // opérations
 Console.WriteLine($"Bonjour {titular.FirstName} {titular.LastName}, née le {titular.Birthday}.");
-Console.WriteLine($"Le solde actuel du compte {account.Number:C} est de {account.Balance:C} et sa ligne de crédit est de {account.CreditLine:C}.");
-account.Deposit(1000);   // dépôt de 1000
-account.Withdraw(200);  // retrait de 200
 
-account.Withdraw(2000); // tentative de retrait excédant la limite --> va nous afficher notre message d'erreur
+bank.AddNewAccount(account);
+
+bank["123456789"].Deposit(1000);
+bank["123456789"].Withdraw(200);
+
+Console.WriteLine($"Le solde actuel du compte {account.Titular.FirstName} est de {account.Balance:C} et sa ligne de crédit est de {account.CreditLine:C}.");
+
+for (int i = 0; i < bank.Accounts.Length; i++)
+{
+    Console.WriteLine($"Compte bancaire {i + 1} : {bank.Accounts[i].Value.Titular.FirstName}");
+}
+
+bank["123456789"].Withdraw(2000); // tentative de retrait excédant la limite --> va nous afficher notre message d'erreur

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Exercice01_CreationClass.Models
 {
-    class Current
+    public class Current
     {
         #region Attributs privés
         private string _Number;
