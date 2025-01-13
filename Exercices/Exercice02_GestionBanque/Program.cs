@@ -1,15 +1,21 @@
-﻿using Exercice02_GestionBanque.Models;
+﻿using System.Text;
+using Exercice02_GestionBanque.Models;
+
+Console.OutputEncoding = Encoding.UTF8;
 
 Banque banque = new()
 {
     Nom = "Banque de Digital City"
 };
+banque.Charger();
 
 ConsoleKey key = default;
 
 while (true)
 {
     Console.Clear();
+    Console.WriteLine($"Bienvenue à la {banque.Nom}");
+    Console.WriteLine("---------------------------------------");
     Console.WriteLine("1. Ajouter un compte");
     Console.WriteLine("2. Afficher un compte");
     Console.WriteLine("3. Afficher les avoirs");
@@ -26,31 +32,28 @@ while (true)
             AfficherLesAvoirs();
             break;
     }
+    banque.Sauver();
 }
 
 void AfficherLesAvoirs()
 {
-    string nom = Question("Nom ?");
-    string prenom = Question("Prenom ?");
-    Console.WriteLine($"Avoirs du compte {nom} {prenom} : {banque.AvoirDesComptes(nom, prenom)}");
+    string nom = Question("nom ?");
+    string prenom = Question("prenom ?");
+    Console.WriteLine($"Avoirs du compte de {nom} {prenom}: {banque.AvoirDesComptes(nom, prenom)} €");
+    Console.ReadKey(true);
 }
 
 void AfficherCompte()
 {
     string numero = Question("Entrer le numéro");
-    Courant? c = banque[numero];
+    Compte? c = banque[numero];
     if (c == null)
     {
         Console.WriteLine("Aucun compte existant avec ce numero");
         return;
     }
 
-    Console.WriteLine("------------------------");
-    Console.WriteLine($"Numéro : {c.Numero}");
-    Console.WriteLine($"Solde : {c.Solde}");
-    Console.WriteLine($"Nom : {c.Titulaire.Nom}");
-    Console.WriteLine($"Prénom : {c.Titulaire.Prenom}");
-    Console.WriteLine("------------------------");
+    AfficherInfo(c);
 
     Console.WriteLine("1. Ajouter de l'argent");
     Console.WriteLine("2. Retirer de l'argent");
@@ -67,13 +70,33 @@ void AfficherCompte()
     }
 }
 
-void AjouterArgent(Courant c)
+void AfficherInfo(Compte c)
+{
+    Console.WriteLine("------------------------");
+    Console.WriteLine($"Type {c.GetType().Name}");
+    Console.WriteLine($"Numero {c.Numero}");
+    Console.WriteLine($"Solde {c.Solde}€");
+    if (c is Courant)
+    {
+        Console.WriteLine($"Ligne de crédit {((Courant)c).LigneDeCredit}€");
+    }
+    else
+    {
+        Console.WriteLine($"Date du dernier retrait {((Epargne)c).DateDernierRetrait}");
+    }
+    Console.WriteLine($"Nom {c.Titulaire.Nom}");
+    Console.WriteLine($"Prenom {c.Titulaire.Prenom}");
+    Console.WriteLine($"Date de naissance {c.Titulaire.DateNaissance:dd/MM/yyyy}");
+    Console.WriteLine("------------------------");
+}
+
+void AjouterArgent(Compte c)
 {
     double montant = double.Parse(Question("Quel montant ?"));
     c.Depot(montant);
 }
 
-void RetirerArgent(Courant c)
+void RetirerArgent(Compte c)
 {
     double montant = double.Parse(Question("Quel montant ?"));
     c.Retrait(montant);
@@ -81,6 +104,8 @@ void RetirerArgent(Courant c)
 
 void AjouterCompte()
 {
+    string type = Question("type?");
+
     Personne p = new()
     {
         Nom = Question("Entrer un nom"),
@@ -88,17 +113,32 @@ void AjouterCompte()
         DateNaissance = DateTime.Parse(Question("Entrer une date de naissance")),
     };
 
-    Courant c = new()
+    if (type == "Courant")
     {
-        Numero = Question("Entrer le numero"),
-        Titulaire = p,
-        LigneDeCredit = double.Parse(Question("Entrer la ligne de crédit"))
-    };
-    banque.Ajouter(c);
+        Courant c = new()
+        {
+            Numero = Question("Entrer le numero"),
+            Titulaire = p,
+            LigneDeCredit = double.Parse(Question("Entrer la ligne de crédit"))
+        };
+        banque.Ajouter(c);
+    }
+    else
+    {
+        Epargne c = new()
+        {
+            Numero = Question("Entrer le numero"),
+            Titulaire = p
+        };
+        banque.Ajouter(c);
+    }
+
 }
 
 string Question(string message)
 {
-    Console.WriteLine(message);
-    return Console.ReadLine();
+    Console.ForegroundColor = ConsoleColor.DarkYellow;
+    Console.Write(message + ": ");
+    Console.ResetColor();
+    return Console.ReadLine() ?? string.Empty;
 }
