@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Exercice02_GestionBanque.Models;
+using Exercice02_GestionBanque.Interfaces;
 
 Console.OutputEncoding = Encoding.UTF8;
 
@@ -47,6 +48,11 @@ void AfficherCompte()
 {
     string numero = Question("Entrer le numéro");
     Compte? c = banque[numero];
+
+    // accès à différentes propriétés en fonction de l'interface implémentée
+    // ICustomer? c = banque[numero]; ---> Depot(); Retrait();
+    // IBanker? c = banque[numero];  ---> AppliquerInterets();
+
     if (c == null)
     {
         Console.WriteLine("Aucun compte existant avec ce numero");

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exercice02_GestionBanque.Interfaces;
 
 namespace Exercice02_GestionBanque.Models
 {
-    public abstract class Compte
+    public abstract class Compte : ICustomer, IBanker
     {
         #region Attributs 
 
