@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Exercice02_GestionBanque.Models
 {
-    public class Courant : Compte
+    sealed class Courant : Compte
     {
         #region Attributs 
 
@@ -37,7 +37,7 @@ namespace Exercice02_GestionBanque.Models
         // Retrait
         public override void Retrait(double montant)
         {
-           
+
             if (Solde - montant < -_LigneDeCredit)
             {
                 return; // à remplacer plus tard par un exception
@@ -46,14 +46,20 @@ namespace Exercice02_GestionBanque.Models
             base.Retrait(montant);
         }
 
+        // implémentation de la class abstract CalculInteret()
+        protected override double CalculInterets()
+        {
+            return Solde > 0 ? Solde * 0.03 : Solde * 0.0975;
+        }
+
         #endregion
-        
+
         #region Surcharge d'opérateur
         // opérateur +
-        public static double operator+(Courant c1, Courant c2)
+        public static double operator +(Courant c1, Courant c2)
         {
             return Math.Max(c1.Solde, 0) + Math.Max(c2.Solde, 0);
-            
+
             #region Solution avec ternaires
             //double solde1 = c1.Solde > 0 ? c1.Solde : 0;
             //double solde2 = c2.Solde > 0 ? c2.Solde : 0;

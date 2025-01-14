@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Exercice02_GestionBanque.Models
 {
-    public class Epargne : Compte
+    sealed class Epargne : Compte
     {
         #region Prop's
         public DateTime? DateDernierRetrait { get; set; }
@@ -23,6 +23,12 @@ namespace Exercice02_GestionBanque.Models
             }
             DateDernierRetrait = DateTime.Now;
             base.Retrait(montant);
+        }
+
+        // Implémentation de la class abstract CalculInteret()
+        protected override double CalculInterets()
+        {
+            return Solde * 0.045;
         }
 
         #endregion

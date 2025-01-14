@@ -53,20 +53,28 @@ void AfficherCompte()
         return;
     }
 
-    AfficherInfo(c);
-
-    Console.WriteLine("1. Ajouter de l'argent");
-    Console.WriteLine("2. Retirer de l'argent");
-
-    key = Console.ReadKey(true).Key;
-    switch (key)
+    while (key != ConsoleKey.Escape)
     {
-        case ConsoleKey.NumPad1:
-            AjouterArgent(c);
-            break;
-        case ConsoleKey.NumPad2:
-            RetirerArgent(c);
-            break;
+        Console.Clear() ;
+        AfficherInfo(c);
+
+        Console.WriteLine("1. Ajouter de l'argent");
+        Console.WriteLine("2. Retirer de l'argent");
+        Console.WriteLine("3. Appliquer intérêts");
+
+        key = Console.ReadKey(true).Key;
+        switch (key)
+        {
+            case ConsoleKey.NumPad1:
+                AjouterArgent(c);
+                break;
+            case ConsoleKey.NumPad2:
+                RetirerArgent(c);
+                break;
+            case ConsoleKey.NumPad3:
+                c.AppliquerInterets();
+                break;
+        }
     }
 }
 
@@ -76,13 +84,19 @@ void AfficherInfo(Compte c)
     Console.WriteLine($"Type {c.GetType().Name}");
     Console.WriteLine($"Numero {c.Numero}");
     Console.WriteLine($"Solde {c.Solde}€");
-    if (c is Courant)
+    // création d'une variable contenant l'instance déjà castée (ici Compte)
+    // égalité au niveau de l'adresse mémoire : Compte et Courant
+    if (c is Courant courant)
     {
-        Console.WriteLine($"Ligne de crédit {((Courant)c).LigneDeCredit}€");
+        Console.WriteLine("-----");
+        Console.WriteLine(c == courant); // true
+        Console.WriteLine(c.GetType()); // GestionBanque.Models
+        Console.WriteLine(courant.GetType()); // GestionBanque.Models
+        Console.WriteLine($"Ligne de crédit {courant.LigneDeCredit}€"); // on ne peut pas faire c.LigneDeCredit car ici c'est un Compte et non un Courant
     }
-    else
+    else if (c is Epargne epargne)
     {
-        Console.WriteLine($"Date du dernier retrait {((Epargne)c).DateDernierRetrait}");
+        Console.WriteLine($"Date du dernier retrait {epargne.DateDernierRetrait}");
     }
     Console.WriteLine($"Nom {c.Titulaire.Nom}");
     Console.WriteLine($"Prenom {c.Titulaire.Prenom}");

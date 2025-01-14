@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Exercice02_GestionBanque.Models
 {
-    public class Compte
+    public abstract class Compte
     {
         #region Attributs 
 
@@ -48,9 +48,8 @@ namespace Exercice02_GestionBanque.Models
                 return; // à remplacer plus tard par un exception
             }
 
-            _Solde -= montant;
+            Solde -= montant;
         }
-
 
         // Depôt
         public void Depot(double montant)
@@ -60,7 +59,16 @@ namespace Exercice02_GestionBanque.Models
                 return; // à remplacer plus tard par un exception
             }
 
-            _Solde += montant;
+            Solde += montant;
+        }
+
+        // Calcul intérêt
+        abstract protected double CalculInterets();
+
+        // Appliquer intérêt
+        public void AppliquerInterets()
+        {
+            Solde += CalculInterets();
         }
 
         #endregion
