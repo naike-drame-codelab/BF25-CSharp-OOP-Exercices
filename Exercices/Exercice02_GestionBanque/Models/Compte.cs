@@ -17,6 +17,11 @@ namespace Exercice02_GestionBanque.Models
 
         #endregion
 
+        #region Constructeurs
+
+        #endregion
+
+
         #region Prop's
 
         public string Numero
