@@ -107,30 +107,16 @@ namespace Exercice02_GestionBanque.Models
             {
                 string[] line = item.Split(",");
                 Compte c;
-                Personne t = new Personne()
-                {
-                    Nom = line[4],
-                    Prenom = line[5],
-                    DateNaissance = DateTime.Parse(line[6]),
-                };
+                Personne t = new Personne(line[4], line[5], DateTime.Parse(line[6]));
+
                 if (line[0] == "Courant")
                 {
-                    c = new Courant()
-                    {
-                        Numero = line[1],
-                        LigneDeCredit = double.Parse(line[3]),
-                        Titulaire = t
-                    };
+                    c = new Courant(line[1], t, double.Parse(line[3]));
 
                 }
                 else
                 {
-                    c = new Epargne()
-                    {
-                        Numero = line[1],
-                        DateDernierRetrait = line[3] == "" ? null : DateTime.Parse(line[3]),
-                        Titulaire = t
-                    };
+                    c = new Epargne(line[1], line[3] == "" ? null : DateTime.Parse(line[3]), t);
                 }
 
                 c.Depot(double.Parse(line[2]));

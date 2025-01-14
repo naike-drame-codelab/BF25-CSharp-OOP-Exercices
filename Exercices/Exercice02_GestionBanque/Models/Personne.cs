@@ -8,8 +8,8 @@ namespace Exercice02_GestionBanque.Models
 {
     public class Personne
     {
-        public string Nom { get; set; }
-        public string Prenom { get; set; }
-        public DateTime DateNaissance { get; set; }
+        public string Nom { get; private set; }
+        public string Prenom { get; private set; }
+        public DateTime DateNaissance { get; private set; }
     }
 }

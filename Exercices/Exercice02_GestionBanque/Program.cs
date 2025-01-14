@@ -61,7 +61,7 @@ void AfficherCompte()
 
     while (key != ConsoleKey.Escape)
     {
-        Console.Clear() ;
+        Console.Clear();
         AfficherInfo(c);
 
         Console.WriteLine("1. Ajouter de l'argent");
@@ -135,21 +135,19 @@ void AjouterCompte()
 
     if (type == "Courant")
     {
-        Courant c = new()
-        {
-            Numero = Question("Entrer le numero"),
-            Titulaire = p,
-            LigneDeCredit = double.Parse(Question("Entrer la ligne de crédit"))
-        };
+        Courant c = new (
+            Question("Entrer le numero"),
+            p,
+            double.Parse(Question("Entrer la ligne de crédit"))
+        );
         banque.Ajouter(c);
     }
     else
     {
-        Epargne c = new()
-        {
-            Numero = Question("Entrer le numero"),
-            Titulaire = p
-        };
+        Epargne c = new(
+            Question("Entrer le numero"),
+            p
+        );
         banque.Ajouter(c);
     }
 

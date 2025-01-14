@@ -9,8 +9,24 @@ namespace Exercice02_GestionBanque.Models
     sealed class Courant : Compte
     {
         #region Attributs 
-
         private double _LigneDeCredit;
+
+
+        #endregion
+
+        #region Ctors
+        public Courant(string numero, Personne titulaire) : base(numero, titulaire)
+        {
+        }
+        public Courant(string numero, Personne titulaire, double solde, double ligneDeCredit) : base(numero, titulaire, solde)
+        {
+            _LigneDeCredit = ligneDeCredit;
+        }
+        
+        public Courant(string numero, Personne titulaire, double ligneDeCredit) : base(numero, titulaire)
+        {
+            _LigneDeCredit = ligneDeCredit;
+        }
 
         #endregion
 
@@ -19,7 +35,7 @@ namespace Exercice02_GestionBanque.Models
         public double LigneDeCredit
         {
             get { return _LigneDeCredit; }
-            set
+            private set
             {
                 if (value < 0)
                 {

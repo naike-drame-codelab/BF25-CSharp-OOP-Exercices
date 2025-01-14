@@ -8,10 +8,21 @@ namespace Exercice02_GestionBanque.Models
 {
     sealed class Epargne : Compte
     {
+        #region Constructeurs
+        public Epargne(string numero, Personne titulaire) : base(numero, titulaire)
+        {
+        }
+        public Epargne(string numero, Personne titulaire, double solde) : base(numero, titulaire, solde)
+        {
+        }
+        #endregion
+                
         #region Prop's
-        public DateTime? DateDernierRetrait { get; set; }
+        public DateTime? DateDernierRetrait { get; private set; }
 
         #endregion
+
+         
 
         #region Méthodes
         // Retrait
