@@ -111,15 +111,15 @@ namespace Exercice02_GestionBanque.Models
 
                 if (line[0] == "Courant")
                 {
-                    c = new Courant(line[1], t, double.Parse(line[3]));
-
+                    c = new Courant(line[1], t, double.Parse(line[3]), double.Parse(line[2]));
                 }
                 else
                 {
-                    c = new Epargne(line[1], line[3] == "" ? null : DateTime.Parse(line[3]), t);
+                    c = new Epargne(line[1], t, double.Parse(line[2]))
+                    {
+                        DateDernierRetrait = line[3] == "" ? null : DateTime.Parse(line[3]),
+                    };
                 }
-
-                c.Depot(double.Parse(line[2]));
                 Ajouter(c);
             }
         }
