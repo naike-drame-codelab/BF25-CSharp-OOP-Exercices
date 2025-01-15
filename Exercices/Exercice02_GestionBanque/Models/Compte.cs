@@ -85,7 +85,7 @@ namespace Exercice02_GestionBanque.Models
         }
 
         // Calcul intérêt
-        abstract protected double CalculInterets();
+        protected abstract double CalculInterets();
 
         // Appliquer intérêt
         public void AppliquerInterets()
