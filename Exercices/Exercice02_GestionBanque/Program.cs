@@ -94,10 +94,10 @@ void AfficherInfo(Compte c)
     // égalité au niveau de l'adresse mémoire : Compte et Courant
     if (c is Courant courant)
     {
-        Console.WriteLine("-----");
-        Console.WriteLine(c == courant); // true
-        Console.WriteLine(c.GetType()); // GestionBanque.Models
-        Console.WriteLine(courant.GetType()); // GestionBanque.Models
+        // Console.WriteLine("-----");
+        // Console.WriteLine(c == courant); // true
+        // Console.WriteLine(c.GetType()); // GestionBanque.Models
+        // Console.WriteLine(courant.GetType()); // GestionBanque.Models
         Console.WriteLine($"Ligne de crédit {courant.LigneDeCredit}€"); // on ne peut pas faire c.LigneDeCredit car ici c'est un Compte et non un Courant
     }
     else if (c is Epargne epargne)
@@ -130,7 +130,7 @@ void AjouterCompte()
     {
         Nom = Question("Entrer un nom"),
         Prenom = Question("Entrer un prenom"),
-        DateNaissance = DateTime.Parse(Question("Entrer une date de naissance")),
+        DateNaissance = DateTime.Parse(Question("Entrer une date de naissance"))
     };
 
     if (type == "Courant")
