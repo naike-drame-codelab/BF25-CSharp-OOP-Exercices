@@ -47,9 +47,12 @@ namespace Exercice02_GestionBanque.Models
             // permet de vérifier s'il existe déjà un compte dans la banque avec ce numero - LINQ
             if (comptes.Any(c => c.Numero == courant.Numero))
             {
-                throw new InvalidOperationException("Le numéro existe déjà.")
+                throw new InvalidOperationException("Le numéro existe déjà.");
             }
             comptes.Add(courant);
+
+            // lorsque j'ajoute un compte dans ma banque : dès que le compte passe en négatif, je lance la méthode
+            courant.PassageEnNegatifEvent += AfficherNegatif;
         }
 
         public void Supprimer(string numero)
@@ -63,6 +66,10 @@ namespace Exercice02_GestionBanque.Models
                 return;
             }
             comptes.Remove(c);
+
+            // suppression de l'event 
+            c.PassageEnNegatifEvent -= AfficherNegatif;
+          
         }
 
         public double AvoirDesComptes(string nom, string prenom)
@@ -125,6 +132,12 @@ namespace Exercice02_GestionBanque.Models
                 }
                 Ajouter(c);
             }
+        }
+    
+        private void AfficherNegatif(Compte c)
+        {
+            Console.WriteLine($"Le compte {c.Numero} est passé en négatif.");
+            Console.ReadKey();
         }
     }
 }

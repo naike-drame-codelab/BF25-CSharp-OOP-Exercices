@@ -7,16 +7,27 @@ using Exercice02_GestionBanque.Interfaces;
 
 namespace Exercice02_GestionBanque.Models
 {
+    #region Delegates
+    public delegate void PassageEnNegatifDelegate(Compte c);
+
+    #endregion
+
     // primary constructeur directement à la définition de la class
     // public abstract class Compte(string numero, Personne Titulaire) : ICustomer, IBanker
     // ALT+ENTER sur la class : use primary constructor 
     public abstract class Compte : ICustomer, IBanker
     {
+
         #region Attributs 
 
         private string _Numero;
         private double _Solde;
         private Personne _Titulaire;
+
+        #endregion
+
+        #region Events
+        public event PassageEnNegatifDelegate PassageEnNegatifEvent;
 
         #endregion
 
@@ -94,6 +105,13 @@ namespace Exercice02_GestionBanque.Models
             Solde += CalculInterets();
         }
 
+        // méthode pour invoquer l'event
+        protected void RaisePassageEnNegatif()
+        {
+            PassageEnNegatifEvent.Invoke(this);
+        }
+
         #endregion
+
     }
 }

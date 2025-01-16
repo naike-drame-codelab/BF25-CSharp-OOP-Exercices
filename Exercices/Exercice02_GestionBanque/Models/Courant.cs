@@ -61,6 +61,12 @@ namespace Exercice02_GestionBanque.Models
             }
 
             base.Retrait(montant);
+
+            // event lancé via l'enfant
+            if(Solde < 0)
+            {
+                RaisePassageEnNegatif();
+            }
         }
 
         // implémentation de la class abstract CalculInteret()
