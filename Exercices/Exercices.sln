@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercice01_CreationClass", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercice02_GestionBanque", "Exercice02_GestionBanque\Exercice02_GestionBanque.csproj", "{5CC4186D-534B-4E14-B39A-985575F5F363}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercice03_CarWash", "Exercice03_CarWash\Exercice03_CarWash.csproj", "{F65A5B84-78F2-4C55-8B69-EA5741B8E98C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5CC4186D-534B-4E14-B39A-985575F5F363}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CC4186D-534B-4E14-B39A-985575F5F363}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CC4186D-534B-4E14-B39A-985575F5F363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65A5B84-78F2-4C55-8B69-EA5741B8E98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65A5B84-78F2-4C55-8B69-EA5741B8E98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65A5B84-78F2-4C55-8B69-EA5741B8E98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65A5B84-78F2-4C55-8B69-EA5741B8E98C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
