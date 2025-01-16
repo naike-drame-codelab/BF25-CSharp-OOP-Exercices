@@ -67,7 +67,7 @@ namespace Exercice02_GestionBanque.Models
         {
             if (montant <= 0)
             {
-                return; // à remplacer plus tard par un exception
+                throw new ArgumentOutOfRangeException("Le montant ne peut pas être négatif.");
             }
 
             Solde -= montant;
@@ -78,7 +78,7 @@ namespace Exercice02_GestionBanque.Models
         {
             if (montant <= 0)
             {
-                return; // à remplacer plus tard par un exception
+                throw new ArgumentOutOfRangeException("Le montant ne peut pas être négatif.");
             }
 
             Solde += montant;
@@ -87,6 +87,7 @@ namespace Exercice02_GestionBanque.Models
         // Calcul intérêt
         protected abstract double CalculInterets();
 
+
         // Appliquer intérêt
         public void AppliquerInterets()
         {
@@ -94,6 +95,5 @@ namespace Exercice02_GestionBanque.Models
         }
 
         #endregion
-
     }
 }

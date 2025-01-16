@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Exercice02_GestionBanque.Models;
 using Exercice02_GestionBanque.Interfaces;
+using Exercice02_GestionBanque.Exceptions;
 
 Console.OutputEncoding = Encoding.UTF8;
 
@@ -14,26 +15,53 @@ ConsoleKey key = default;
 
 while (true)
 {
-    Console.Clear();
-    Console.WriteLine($"Bienvenue à la {banque.Nom}");
-    Console.WriteLine("---------------------------------------");
-    Console.WriteLine("1. Ajouter un compte");
-    Console.WriteLine("2. Afficher un compte");
-    Console.WriteLine("3. Afficher les avoirs");
-    key = Console.ReadKey(true).Key;
-    switch (key)
+    try
     {
-        case ConsoleKey.NumPad1:
-            AjouterCompte();
-            break;
-        case ConsoleKey.NumPad2:
-            AfficherCompte();
-            break;
-        case ConsoleKey.NumPad3:
-            AfficherLesAvoirs();
-            break;
+        Console.Clear();
+        Console.WriteLine($"Bienvenue à la {banque.Nom}");
+        Console.WriteLine("---------------------------------------");
+        Console.WriteLine("1. Ajouter un compte");
+        Console.WriteLine("2. Afficher un compte");
+        Console.WriteLine("3. Afficher les avoirs");
+        key = Console.ReadKey(true).Key;
+        switch (key)
+        {
+            case ConsoleKey.NumPad1:
+                AjouterCompte();
+                break;
+            case ConsoleKey.NumPad2:
+                AfficherCompte();
+                break;
+            case ConsoleKey.NumPad3:
+                AfficherLesAvoirs();
+                break;
+        }
+        banque.Sauver();
     }
-    banque.Sauver();
+    catch (SoldeInsuffisantException ex)
+    {
+
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"Montant invalide {ex.Montant}");
+        Console.WriteLine(ex.Message);
+        Console.ResetColor();
+        Console.ReadKey();
+    }
+    catch (ArgumentOutOfRangeException ex)
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine(ex.Message);
+        Console.ResetColor();
+        Console.ReadKey();
+    }
+    catch (InvalidOperationException ex)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+        Console.WriteLine("Opération invalide.");
+        Console.WriteLine(ex.Message);
+        Console.ResetColor();
+        Console.ReadKey();
+    }
 }
 
 void AfficherLesAvoirs()
@@ -126,12 +154,7 @@ void AjouterCompte()
 {
     string type = Question("type?");
 
-    Personne p = new()
-    {
-        Nom = Question("Entrer un nom"),
-        Prenom = Question("Entrer un prenom"),
-        DateNaissance = DateTime.Parse(Question("Entrer une date de naissance"))
-    };
+    Personne p = new() { Nom = Question("Entrer un nom"), Prenom = Question("Entrer un prenom"), DateNaissance = DateTime.Parse(Question("Entrer une date de naissance")) };
 
     if (type == "Courant")
     {

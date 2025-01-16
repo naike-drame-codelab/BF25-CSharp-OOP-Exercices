@@ -47,8 +47,7 @@ namespace Exercice02_GestionBanque.Models
             // permet de vérifier s'il existe déjà un compte dans la banque avec ce numero - LINQ
             if (comptes.Any(c => c.Numero == courant.Numero))
             {
-                // plus déclencher une erreur
-                return;
+                throw new InvalidOperationException("Le numéro existe déjà.")
             }
             comptes.Add(courant);
         }
@@ -107,8 +106,12 @@ namespace Exercice02_GestionBanque.Models
             {
                 string[] line = item.Split(",");
                 Compte c;
-                Personne t = new Personne(line[4], line[5], DateTime.Parse(line[6]));
-
+                Personne t = new Personne()
+                {
+                    Nom = line[4],
+                    Prenom = line[5],
+                    DateNaissance = DateTime.Parse(line[6]),
+                };
                 if (line[0] == "Courant")
                 {
                     c = new Courant(line[1], t, double.Parse(line[3]), double.Parse(line[2]));

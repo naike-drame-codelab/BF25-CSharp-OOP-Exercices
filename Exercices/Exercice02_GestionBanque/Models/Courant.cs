@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exercice02_GestionBanque.Exceptions;
 
 namespace Exercice02_GestionBanque.Models
 {
@@ -39,7 +40,7 @@ namespace Exercice02_GestionBanque.Models
             {
                 if (value < 0)
                 {
-                    return; // à remplacer plus tard par un exception
+                    throw new InvalidOperationException();
                 }
 
                 _LigneDeCredit = value;
@@ -56,7 +57,7 @@ namespace Exercice02_GestionBanque.Models
 
             if (Solde - montant < -_LigneDeCredit)
             {
-                return; // à remplacer plus tard par un exception
+                throw new SoldeInsuffisantException(Solde + LigneDeCredit, montant);
             }
 
             base.Retrait(montant);

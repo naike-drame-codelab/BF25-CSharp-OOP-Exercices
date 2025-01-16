@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exercice02_GestionBanque.Exceptions;
 
 namespace Exercice02_GestionBanque.Models
 {
@@ -18,7 +19,7 @@ namespace Exercice02_GestionBanque.Models
         #endregion
                 
         #region Prop's
-        public DateTime? DateDernierRetrait { get; private set; }
+        public DateTime? DateDernierRetrait { get; set; }
 
         #endregion
 
@@ -30,7 +31,7 @@ namespace Exercice02_GestionBanque.Models
         {
             if (Solde - montant < 0)
             {
-                return; // à remplacer plus tard par un exception
+                throw new SoldeInsuffisantException(Solde, montant);
             }
             DateDernierRetrait = DateTime.Now;
             base.Retrait(montant);
